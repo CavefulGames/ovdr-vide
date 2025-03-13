@@ -1,5 +1,3 @@
-local typeof = game and typeof or require "../test/mock".typeof :: never
-
 local flags = require "./flags"
 local implicit_effect = require "./implicit_effect"
 local _, is_action = require "./action"()
@@ -78,7 +76,7 @@ local function process_properties(properties: Map<unknown, unknown>, instance: I
                 continue
             end
 
-            if type(value) == "function" then 
+            if type(value) == "function" then
                 if typeof((instance :: any)[property]) == "RBXScriptSignal" then
                     table.insert(cache.events, property) -- add event name to buffer
                     table.insert(cache.events, value :: () -> ()) -- add event listener to buffer
@@ -87,7 +85,7 @@ local function process_properties(properties: Map<unknown, unknown>, instance: I
                 end
             else
                 (instance :: any)[property] = value -- set property
-            end    
+            end
         elseif type(property) == "number" then
             if type(value) == "function" then
                 implicit_effect.children(instance, value :: () -> ArrayOrV<Instance>) -- bind children

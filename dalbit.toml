@@ -1,0 +1,21 @@
+input = "src"
+output = "dist"
+file_extension = "lua"
+target_version = "lua53"
+minify = true
+
+[modifiers]
+
+[polyfill]
+repository = "https://github.com/CavefulGames/dalbit-polyfill"
+injection_path = "__polyfill__"
+
+[polyfill.config]
+emulate_frozen_table = false
+emulate_newproxy = false
+emulate_type_error = false
+emulate_next = false
+luau_hash_table = false
+
+[polyfill.globals]
+typeof = false

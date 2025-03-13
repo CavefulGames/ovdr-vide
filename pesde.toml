@@ -1,0 +1,18 @@
+name = "not_a_package/not_a_package"
+version = "0.0.0"
+private = true
+
+[target]
+environment = "lune"
+
+[indices]
+default = "https://github.com/pesde-pkg/index"
+
+[scripts]
+bundle = "scripts/bundle.luau"
+
+[dependencies]
+darklua = { name = "pesde/darklua", version = "^0.16.0" }
+dalbit = { name = "caveful_games/dalbit", version = "^0.1.1" }
+darklua_lune = { name = "jiwonz/darklua_lune", version = "^0.1.4" }
+luau_path = { name = "jiwonz/luau_path", version = "^0.1.1", target = "luau" }

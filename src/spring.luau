@@ -1,3 +1,4 @@
+local vector = require("./polyfill/vector")
 local graph = require "./graph"
 type Node<T> = graph.Node<T>
 type SourceNode<T> = graph.SourceNode<T>
@@ -59,7 +60,7 @@ local type_to_vec6 = {
     UDim = function(v)
         return vector.create(v.Scale, v.Offset, 0), vector.zero
     end :: TypeToVec6<UDim>,
-    
+
     UDim2 = function(v)
         return vector.create(v.X.Scale, v.X.Offset, v.Y.Scale), vector.create(v.Y.Offset, 0, 0)
     end :: TypeToVec6<UDim2>,
@@ -93,7 +94,7 @@ local vec6_to_type = {
     UDim = function(v)
         return UDim.new(v.X, math.round(v.Y))
     end :: Vec6ToType<UDim>,
-    
+
     UDim2 = function(a, b)
         return UDim2.new(a.X, math.round(a.Y), a.Z, math.round(b.X))
     end :: Vec6ToType<UDim2>,
@@ -157,7 +158,7 @@ local function spring<T>(source: () -> T, period: number?, damping_ratio: number
 
         source_value = false :: any,
     }
-    
+
     local output = create_source_node(false :: any)
 
     local function updater_effect()

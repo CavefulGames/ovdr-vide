@@ -1,9 +1,9 @@
-local Enum = game and Enum or require "../test/mock".Enum :: never
-local Color3 = game and Color3 or require "../test/mock".Color3 :: never
+local Enum = require("./polyfill/Enum")
+local vector = require("./polyfill/vector")
 
-return {
+local defaults = {
     Part = {
-        Material = Enum.Material.SmoothPlastic,
+        Material = Enum.Material.Plastic,
         Size = vector.create(1, 1, 1),
         Anchored = true
     },
@@ -45,7 +45,7 @@ return {
         BorderSizePixel = 0,
         ScrollBarImageColor3 = Color3.new(0, 0, 0)
     },
-    
+
     SurfaceGui = {
         ResetOnSpawn = false,
         ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
@@ -53,7 +53,7 @@ return {
         PixelsPerStud = 50,
         SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud
     },
-    
+
     TextBox = {
         BackgroundColor3 = Color3.new(1, 1, 1),
         BorderColor3 = Color3.new(0, 0, 0),
@@ -73,7 +73,7 @@ return {
         Text = "",
         TextColor3 = Color3.new(0, 0, 0)
     },
-    
+
     TextLabel = {
         BackgroundColor3 = Color3.new(1, 1, 1),
         BorderColor3 = Color3.new(0, 0, 0),
@@ -82,11 +82,11 @@ return {
         Text = "",
         TextColor3 = Color3.new(0, 0, 0)
     },
-    
+
     UIListLayout = {
         SortOrder = Enum.SortOrder.LayoutOrder
     },
-   
+
     UIGridLayout = {
         SortOrder = Enum.SortOrder.LayoutOrder
     },
@@ -98,16 +98,33 @@ return {
     UIPageLayout = {
         SortOrder = Enum.SortOrder.LayoutOrder
     },
-    
+
     VideoFrame = {
         BackgroundColor3 = Color3.new(1, 1, 1),
         BorderColor3 = Color3.new(0, 0, 0),
         BorderSizePixel = 0
     },
-    
+
     ViewportFrame = {
         BackgroundColor3 = Color3.new(1, 1, 1),
         BorderColor3 = Color3.new(0, 0, 0),
         BorderSizePixel = 0
     }
 }
+
+for className, props in (defaults :: any) :: { [string]: { [string]: any } } do
+	local ok, instance = pcall(Instance.new, className)
+	if not ok then
+		defaults[className] = nil
+		continue
+	end
+	for key, _ in props do
+		if not pcall(function()
+			return instance[key]
+		end) then
+			props[key] = nil
+		end
+	end
+end
+
+return defaults
