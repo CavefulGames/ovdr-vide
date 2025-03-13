@@ -16,7 +16,8 @@ local function source<T>(initial_value: T): Source<T>
         end
 
         local v = ... :: T
-        if node.cache == v and (type(v) ~= "table" or table.isfrozen(v)) then 
+		local t = typeof(v)
+        if node.cache == v and (type(v) ~= "table" or table.isfrozen(v)) and t ~= "Vector3" and t ~= "UDim2" and t ~= "CFrame" and t ~= "Color3" and t ~= "UDim" then
             return v
         end
 

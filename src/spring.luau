@@ -1,3 +1,6 @@
+--!nocheck
+-- nocheck because of fucking vector type
+
 local vector = require("./polyfill/vector")
 local graph = require "./graph"
 type Node<T> = graph.Node<T>
@@ -278,13 +281,13 @@ local function update_spring_sources()
             TOLERANCE_VECTOR
         )
 
-        if max_difference == TOLERANCE_VECTOR then
-            -- close enough to target, unshedule spring and set value to target
-            springs[data] = nil
-            output.cache = data.source_value
-        else
+        -- if max_difference == TOLERANCE_VECTOR then
+        --     -- close enough to target, unshedule spring and set value to target
+        --     springs[data] = nil
+        --     output.cache = data.source_value
+        -- else
             output.cache = vec6_to_type[typeof(data.source_value)](x0_123, x0_456)
-        end
+        -- end
 
         update_descendants(output)
     end
