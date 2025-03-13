@@ -1,5 +1,6 @@
 local Enum = require("./polyfill/Enum")
 local vector = require("./polyfill/vector")
+local Color3 = require("./polyfill/Color3")
 
 local defaults = {
     Part = {
