@@ -11,7 +11,7 @@ local RunService = game:GetService("RunService")
 local function resumeWithErrorCheck(thread: thread, ...: any): ()
 	local success, message = coroutine.resume(thread, ...)
 	if not success then
-		warn(message)
+		print("Error:", message)
 	end
 end
 
