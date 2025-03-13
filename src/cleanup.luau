@@ -1,5 +1,4 @@
-local typeof = game and typeof or require "../test/mock".typeof :: never
-
+local task = require("./polyfill/task")
 local graph = require "./graph"
 local get_scope = graph.get_scope
 local push_cleanup = graph.push_cleanup

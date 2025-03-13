@@ -19,6 +19,7 @@ local spring, update_springs = require "./spring"()
 local action = require "./action"()
 local changed = require "./changed"
 local flags = require "./flags"
+local task = require("./polyfill/task")
 
 export type Source<T> = source.Source<T>
 export type source<T> = Source<T>
@@ -27,15 +28,15 @@ export type context<T> = Context<T>
 
 local function step(dt: number)
     if game then
-        debug.profilebegin("VIDE STEP")
-        debug.profilebegin("VIDE SPRING")
+        -- debug.profilebegin("VIDE STEP")
+        -- debug.profilebegin("VIDE SPRING")
     end
 
     update_springs(dt)
 
     if game then
-        debug.profileend()
-        debug.profileend()
+        -- debug.profileend()
+        -- debug.profileend()
     end
 end
 
