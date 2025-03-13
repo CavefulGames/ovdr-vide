@@ -67,11 +67,43 @@ end
 -- print(vector_clamp(vector_create(10, -10, 50), vector_create(1, 1, 1), vector_create(5, 100, 100)))
 
 local function vector_min(vector: Vector3, ...: Vector3): Vector3
-    return vector:Min(...)
+    local result = { vector.X, vector.Y, vector.Z }
+    local args = { ... }
+
+    for i = 1, #args do
+        local vec = args[i]
+        if vec.X < result[1] then
+			result[1] = vec.X
+        end
+        if vec.Y < result[2] then
+            result[2] = vec.Y
+        end
+        if vec.Z < result[3] then
+			result[3] = vec.Z
+        end
+    end
+
+    return vector_create(result[1], result[2], result[3])
 end
 
 local function vector_max(vector: Vector3, ...: Vector3): Vector3
-    return vector:Max(...)
+    local result = { vector.X, vector.Y, vector.Z }
+    local args = { ... }
+
+    for i = 1, #args do
+        local vec = args[i]
+        if vec.X > result[1] then
+			result[1] = vec.X
+        end
+        if vec.Y > result[2] then
+            result[2] = vec.Y
+        end
+        if vec.Z > result[3] then
+			result[3] = vec.Z
+        end
+    end
+
+    return vector_create(result[1], result[2], result[3])
 end
 
 return ({
