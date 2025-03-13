@@ -11,7 +11,7 @@ type Map<K, V> = { [K]: V }
 type Cache = {
     -- event listeners to connect after properties are set
     events: Array<
-        | string -- 1. event name
+        string -- 1. event name
         | () -> () -- 2. listener
     >,
 
