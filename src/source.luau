@@ -3,6 +3,7 @@ type Node<T> = graph.Node<T>
 local create_source_node = graph.create_source_node
 local push_child_to_scope = graph.push_child_to_scope
 local update_descendants = graph.update_descendants
+local equalCheckers = require "./ovdr/equalCheckers"
 
 export type Source<T> = (() -> T) & ((value: T) -> T)
 
@@ -16,9 +17,15 @@ local function source<T>(initial_value: T): Source<T>
         end
 
         local v = ... :: T
-		local t = typeof(v)
-        if node.cache == v and (type(v) ~= "table" or table.isfrozen(v)) and t ~= "Vector3" and t ~= "UDim2" and t ~= "CFrame" and t ~= "Color3" and t ~= "UDim" then
-            return v
+        local t = typeof(v)
+        if (type(v) ~= "table" or table.isfrozen(v)) then
+            local equalChecker = equalCheckers[t]
+            if equalChecker and equalChecker(node.cache, v) then
+                return v
+            end
+            if node.cache == v then
+                return v
+            end
         end
 
         node.cache = v

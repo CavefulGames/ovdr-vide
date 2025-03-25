@@ -11,6 +11,8 @@ local assert_stable_scope = graph.assert_stable_scope
 local evaluate_node = graph.evaluate_node
 local update_descendants = graph.update_descendants
 local push_child_to_scope = graph.push_child_to_scope
+local equalCheckers = require "./ovdr/equalCheckers"
+local vectorEqualChecker = equalCheckers.Vector3
 
 local UPDATE_RATE = 120
 local TOLERANCE = 0.001
@@ -281,13 +283,13 @@ local function update_spring_sources()
             TOLERANCE_VECTOR
         )
 
-        -- if max_difference == TOLERANCE_VECTOR then
-        --     -- close enough to target, unshedule spring and set value to target
-        --     springs[data] = nil
-        --     output.cache = data.source_value
-        -- else
+        if vectorEqualChecker(max_difference, TOLERANCE_VECTOR) then
+            -- close enough to target, unshedule spring and set value to target
+            springs[data] = nil
+            output.cache = data.source_value
+        else
             output.cache = vec6_to_type[typeof(data.source_value)](x0_123, x0_456)
-        -- end
+        end
 
         update_descendants(output)
     end
