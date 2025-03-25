@@ -20,10 +20,11 @@ local function source<T>(initial_value: T): Source<T>
         local t = typeof(v)
         if (type(v) ~= "table" or table.isfrozen(v)) then
             local equalChecker = equalCheckers[t]
-            if equalChecker and equalChecker(node.cache, v) then
-                return v
-            end
-            if node.cache == v then
+            if equalChecker then
+                if equalChecker(node.cache, v) then
+                    return v
+                end
+            elseif node.cache == v then
                 return v
             end
         end
