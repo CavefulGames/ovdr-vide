@@ -78,8 +78,8 @@ local function process_properties(properties: Map<unknown, unknown>, instance: I
             end
 
             if type(value) == "function" then
-                -- if typeof((instance :: any)[property]) == "RBXScriptSignal" then
-				if stringSub(tostring((instance :: any)[property]), 1, 15) == "LuaScriptSignal" then
+                if typeof((instance :: any)[property]) == "ScriptSignal" then
+                -- if stringSub(tostring((instance :: any)[property]), 1, 15) == "LuaScriptSignal" then
                     table.insert(cache.events, property) -- add event name to buffer
                     table.insert(cache.events, value :: () -> ()) -- add event listener to buffer
                 else
